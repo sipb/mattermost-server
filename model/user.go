@@ -233,6 +233,10 @@ func (u *User) IsValid() *AppError {
 		return InvalidUserError("username", u.Id)
 	}
 
+	if u.Username != strings.Split(u.Email, "@")[0] {
+		return InvalidUserError("username", u.Id)
+	}
+
 	if len(u.Email) > USER_EMAIL_MAX_LENGTH || len(u.Email) == 0 || !IsValidEmail(u.Email) {
 		return InvalidUserError("email", u.Id)
 	}
